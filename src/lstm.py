@@ -135,7 +135,7 @@ regressor = KerasRegressor(build_fn = build_regressor)
     
 parameters = {'batch_size': [25, 32, 64],
               'nb_epoch': [100, 500],
-              'optimizer': ['adam', 'rmsprop']}
+              'optimizer':['SGD', 'RMSprop', 'Adagrad', 'Adadelta', 'Adam', 'Adamax', 'Nadam']}
 
 grid_search = GridSearchCV(estimator = regressor,
                            param_grid = parameters,
@@ -144,6 +144,12 @@ grid_search = GridSearchCV(estimator = regressor,
 
 # fit the RNN to the training set
 grid_search = regressor.fit(x_train, y_train)
+means = grid_search.cv_results_['mean_test_score']
+stds = grid_search.cv_results_['std_test_score'] # ?
+params = grid_search.cv_results_['params']
+for mean, stdev, param in zip(means, stds, params):
+    print("%f (%f) with: %r" % (mean, stdev, param))
+
 best_parameters = grid_search.best_params_
 best_accuracy = grid_search.best_score_
 
