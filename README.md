@@ -10,7 +10,6 @@ The outcome (The Stock Price) should be continuous, so this is a regression prob
 import math
 from sklearn.metrics import mean_squared_error
 rmse = math.sqrt(mean_squared_error(real_stock_price, predicted_stock_price))
-
 ```
 
 However, in Stock Price Prediction scenario, we should be more interested in the directions, rather than the closeness of their values to the real stock price. That's why the RMSE as the loss founction doesn't make sense.
